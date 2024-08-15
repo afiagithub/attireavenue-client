@@ -1,7 +1,20 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { AuthContext } from "../providers/AuthProviders";
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+    const handleSigOut = () => {
+        logOut()
+            .then(() => {
+                toast.success("Logged Out")
+            })
+    }
+    console.log(user);
+    
+
     const links = <>
         <li className="bg-transparent mx-2"><NavLink className={({ isActive }) => isActive ? "border-2 border-[#921A40] text-[#921A40]"
             : "border-2 border-transparent"} to="/">Home</NavLink></li>
@@ -42,7 +55,25 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to='/register' className="btn">Log in</Link>
+                {
+                    user ? <div className="flex flex-row gap-3">
+                        <button data-tooltip-id="user_logo" data-tooltip-content={user.displayName}
+                            data-tooltip-place="bottom">
+                            <img className="w-12 h-12 rounded-full"
+                                src={user.photoURL || 'https://i.ibb.co/QnTrVRz/icon.jpg'} alt="" /></button>
+                        <Tooltip id="user_logo" />
+                        <NavLink onClick={handleSigOut} className="btn bg-[#ff494a] text-white px-4 border-2 border-[#ff494a] 
+                    hover:border-[#ff494a] hover:bg-transparent hover:text-[#ff494a]" to="/">LogOut</NavLink>
+
+                    </div> :
+                        <div className="flex flex-row gap-5">
+                            <NavLink className="btn bg-[#ff494a] text-white text-lg border-2 border-[#ff494a] 
+                        hover:border-[#ff494a] hover:bg-transparent hover:text-[#ff494a]" to="/login">Login</NavLink>
+                            <NavLink className="btn bg-primary text-white text-lg border-2 border-primary 
+                        hover:border-primary hover:bg-transparent hover:text-primary" to="/register">Register</NavLink>
+                        </div>
+
+                }
             </div>
         </div>
     );
