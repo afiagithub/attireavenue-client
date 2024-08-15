@@ -26,7 +26,7 @@ const Navbar = () => {
             : "border-2 border-transparent"} to="/add-product">Add Product</NavLink></li>
     </>
     return (
-        <div className="navbar py-5 px-0">
+        <div className="navbar py-5">
             <div className="navbar-start">
                 <div className="dropdown">
                     <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -69,7 +69,7 @@ const Navbar = () => {
 
                     </div> :
                         <div className="flex flex-row gap-5">
-                            <NavLink className="btn bg-[#921A40] text-white text-lg border-2 border-[#921A40] 
+                            <NavLink className="btn bg-[#921A40] text-white border-2 border-[#921A40] 
                         hover:border-[#921A40] hover:bg-transparent hover:text-[#921A40]" to="/login">Login</NavLink>
                         </div>
 

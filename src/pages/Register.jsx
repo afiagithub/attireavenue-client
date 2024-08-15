@@ -48,11 +48,12 @@ const Register = () => {
             });
     }
     return (
-        <div className="flex flex-row justify-between w-full rounded-md sm:p-10 my-5">
+        <div className="flex flex-col lg:flex-row justify-between items-center lg:items-start w-full rounded-md 
+        sm:p-10 my-5 gap-10">
             <Helmet>
                 <title>AttireAvenue | Register</title>
             </Helmet>
-            <div className="mt-24">
+            <div className="lg:mt-24">
                 <p className="text-black"><span className="text-4xl font-bold text-[#921A40]">Create </span> 
                 an account and <br /> see our <span className="text-4xl font-bold text-[#921A40]">product showcase</span></p>
             </div>
