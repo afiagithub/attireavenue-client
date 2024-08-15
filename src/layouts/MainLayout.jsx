@@ -1,8 +1,11 @@
+import { Outlet } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 const MainLayout = () => {
     return (
-        <div className="font-pop">
-            
+        <div className="font-pop max-w-6xl mx-auto">
+            <Navbar></Navbar>
+            <Outlet></Outlet>
         </div>
     );
 };
