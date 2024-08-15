@@ -8,10 +8,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../providers/AuthProviders";
 import SocialLogin from "../components/SocialLogin"
+import useAxiosPublic from '../hooks/useAxiosPublic'
+import RegisterLogo from '../lotties/register.json'
+import Lottie from "lottie-react";
 
 const Register = () => {
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, setUser } = useContext(AuthContext);
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
 
     const [show, setShow] = useState(false);
     const handleToggle = () => {
@@ -36,14 +40,28 @@ const Register = () => {
             return;
         }
         createUser(email, pass)
-            .then(() => {
+            .then((result) => {
                 updateUserProfile(fullName, photo)
-                    .then(() => {
-                        navigate('/')
-                        toast.success("Successfully Registered")
+                    .then(async () => {
+                        setUser({ ...result.user, photoURL: photo, displayName: fullName })
+                        const userInfo = {
+                            name: fullName,
+                            email,
+                            photo: photo || 'https://i.ibb.co/QnTrVRz/icon.jpg'
+                        }
+                        const res = await axiosPublic.post("/users", userInfo);
+                        console.log(res);
+                        if (res.data.insertedId) {
+                            navigate('/')
+                            toast.success("Successfully Registered")
+                        }
+                        else{
+                            toast.error("User already exists")
+                        }
                     });
             })
             .catch((error) => {
+                toast.error("User already exists")
                 console.log(error.message)
             });
     }
@@ -53,11 +71,12 @@ const Register = () => {
             <Helmet>
                 <title>AttireAvenue | Register</title>
             </Helmet>
-            <div className="lg:mt-24">
-                <p className="text-black"><span className="text-4xl font-bold text-[#921A40]">Create </span> 
-                an account and <br /> see our <span className="text-4xl font-bold text-[#921A40]">product showcase</span></p>
+            <div className="lg:mt-20">
+                <p className="w-72 mx-auto"><Lottie animationData={RegisterLogo} loop={true}></Lottie></p>
+                <p className="text-black"><span className="text-4xl font-bold text-[#921A40]">Create </span>
+                    an account and <br /> see our <span className="text-4xl font-bold text-[#921A40]">product showcase</span></p>
             </div>
-            <div className="flex flex-col w-4/5 md:w-3/4 lg:w-2/5 mx-auto">                
+            <div className="flex flex-col w-4/5 md:w-3/4 lg:w-2/5 mx-auto">
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
                     <div className="space-y-4 ">
                         <div>

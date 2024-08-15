@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../providers/AuthProviders";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const SocialLogin = () => {
     const { googleLogin } = useContext(AuthContext);
@@ -10,28 +11,24 @@ const SocialLogin = () => {
     const location = useLocation();
     const from = location?.state || '/';
 
+    const axiosPublic = useAxiosPublic()
+
     const handleSocialLogin = (socialProvider) => {
         socialProvider()
             .then(async (result) => {
+                navigate(`${from}`)
+                toast.success("Successfully Logged In");
                 if (result.user) {
-                    navigate(`${from}`)
-                    toast.success("Successfully Logged In")
-                    
-                    // const userInfo = {
-                    //     name: result.user.displayName,
-                    //     email: result.user.email || result.user?.reloadUserInfo?.screenName,
-                    //     user_id: result.user.uid,
-                    //     photo: result.user.photoURL || 'https://i.ibb.co/QnTrVRz/icon.jpg',
-                    //     bloodType: '',
-                    //     dist: '',
-                    //     upazila: '',
-                    //     status: 'active'
-
-                    // }
-                    // const res = await axiosPublic.post("/users", userInfo);
-                    // if (res.data.insertedId) {
-                    //     console.log({ message: 'success' });
-                    // }
+                    const userInfo = {
+                        name: result.user.displayName,
+                        email: result.user.email,
+                        photo: result.user.photoURL || 'https://i.ibb.co/QnTrVRz/icon.jpg'
+                    }
+                    const res = await axiosPublic.post("/users", userInfo);
+                    if (res.data.insertedId) {
+                        console.log({success: true});
+                        
+                    }
                 }
             });
     }
