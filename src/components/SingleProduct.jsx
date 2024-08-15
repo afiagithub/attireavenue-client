@@ -1,22 +1,25 @@
 
 
-const SingleProduct = () => {
+const SingleProduct = ({ pr }) => {
+    const { name, image, description, price, brand, category, product_creation_date } = pr;
     return (
         <div className="card bg-base-100 w-[375px] shadow-xl">
-            <figure>
-                <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Shoes" />
+            <figure className="">
+                <img className="h-80 w-full object-cover"
+                    src={image}
+                    alt="image" />
             </figure>
             <div className="card-body">
-                <h2 className="card-title">
-                    Shoes!
-                    <div className="badge badge-secondary">NEW</div>
-                </h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
-                <div className="card-actions justify-end">
-                    <div className="badge badge-outline">Fashion</div>
-                    <div className="badge badge-outline">Products</div>
+                <div className="flex justify-between items-center gap-5">
+                    <h2 className="card-title font-fira">
+                        {name}
+                    </h2>
+                    <p className="text-right"><span className="badge bg-[#921A40] text-white font-semibold text-lg">${price}</span></p>
+                </div>
+                <p>{description.slice(0, 80)}...</p>
+                <div className="flex justify-between text-sm font-medium">
+                    <p>Brand: <span className="badge badge-info">{brand}</span></p>
+                    <p>Category: <span className="badge text-[#921A40] bg-[#e6c0cc]">{category}</span></p>
                 </div>
             </div>
         </div>
