@@ -3,6 +3,8 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProviders";
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
+import { toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -62,15 +64,13 @@ const Navbar = () => {
                             <img className="w-12 h-12 rounded-full"
                                 src={user.photoURL || 'https://i.ibb.co/QnTrVRz/icon.jpg'} alt="" /></button>
                         <Tooltip id="user_logo" />
-                        <NavLink onClick={handleSigOut} className="btn bg-[#ff494a] text-white px-4 border-2 border-[#ff494a] 
-                    hover:border-[#ff494a] hover:bg-transparent hover:text-[#ff494a]" to="/">LogOut</NavLink>
+                        <NavLink onClick={handleSigOut} className="btn bg-[#921A40] text-white px-4 border-2 border-[#921A40] 
+                    hover:border-[#921A40] hover:bg-transparent hover:text-[#921A40]" to="/">LogOut</NavLink>
 
                     </div> :
                         <div className="flex flex-row gap-5">
-                            <NavLink className="btn bg-[#ff494a] text-white text-lg border-2 border-[#ff494a] 
-                        hover:border-[#ff494a] hover:bg-transparent hover:text-[#ff494a]" to="/login">Login</NavLink>
-                            <NavLink className="btn bg-primary text-white text-lg border-2 border-primary 
-                        hover:border-primary hover:bg-transparent hover:text-primary" to="/register">Register</NavLink>
+                            <NavLink className="btn bg-[#921A40] text-white text-lg border-2 border-[#921A40] 
+                        hover:border-[#921A40] hover:bg-transparent hover:text-[#921A40]" to="/login">Login</NavLink>
                         </div>
 
                 }

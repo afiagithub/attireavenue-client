@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../providers/AuthProviders";
+import SocialLogin from "../components/SocialLogin"
 
 const Register = () => {
     const { createUser, updateUserProfile } = useContext(AuthContext);
@@ -107,7 +108,7 @@ const Register = () => {
                         </p>
                     </div>
                 </form>
-
+                <SocialLogin></SocialLogin>
             </div>
         </div>
     );
