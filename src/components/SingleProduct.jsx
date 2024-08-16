@@ -10,13 +10,17 @@ const SingleProduct = ({ pr }) => {
                     alt="image" />
             </figure>
             <div className="card-body">
-                <div className="flex justify-between items-center gap-5">
-                    <h2 className="card-title font-fira">
-                        {name}
-                    </h2>
-                    <p className="text-right"><span className="badge bg-[#921A40] text-white font-semibold text-lg">${price}</span></p>
+                <div className="h-28">
+                    <div className="flex justify-between items-center gap-5 mb-3">
+                        <h2 className="card-title font-fira">
+                            {name}
+                        </h2>
+                        <p className="text-right">
+                            <span className="badge bg-[#921A40] text-white font-semibold text-lg">${price}</span>
+                        </p>
+                    </div>
+                    <p>{description.slice(0, 80)}...</p>
                 </div>
-                <p>{description.slice(0, 80)}...</p>
                 <div className="flex justify-between text-sm font-medium">
                     <p>Brand: <span className="badge badge-info">{brand}</span></p>
                     <p>Category: <span className="badge text-[#921A40] bg-[#e6c0cc]">{category}</span></p>

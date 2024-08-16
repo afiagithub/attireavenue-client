@@ -26,7 +26,7 @@ const Register = () => {
 
     const onSubmit = (data) => {
         const { fullName, email, pass, confirmPass, photo } = data;
-        console.log(data)
+        // console.log(data)
         if (pass.length < 6) {
             toast.error("Password must be at least 6 characters long");
             return;
@@ -50,7 +50,7 @@ const Register = () => {
                             photo: photo || 'https://i.ibb.co/QnTrVRz/icon.jpg'
                         }
                         const res = await axiosPublic.post("/users", userInfo);
-                        console.log(res);
+                        // console.log(res);
                         if (res.data.insertedId) {
                             navigate('/')
                             toast.success("Successfully Registered")
@@ -62,7 +62,7 @@ const Register = () => {
             })
             .catch((error) => {
                 toast.error("User already exists")
-                console.log(error.message)
+                // console.log(error.message)
             });
     }
     return (
