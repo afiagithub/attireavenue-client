@@ -13,21 +13,23 @@ const AllProduct = () => {
     const [crit, setCrit] = useState('');
     const [cat, setCat] = useState('');
     const [brand, setBrand] = useState('');
+    const [minPrice, setMinPrice] = useState(0);
+    const [maxPrice, setMaxPrice] = useState(0);
 
     const axiosPublic = useAxiosPublic();
     const { data: products = [], isLoading, refetch } = useQuery({
-        queryKey: ['products', currentPage, itemsPerPage, crit, cat, brand],
+        queryKey: ['products', currentPage, itemsPerPage, crit, cat, brand, minPrice, maxPrice],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/all-clothes?criteria=${crit}&page=${currentPage}&size=${itemsPerPage}&cat=${cat}&brand=${brand}`)
+            const res = await axiosPublic.get(`/all-clothes?criteria=${crit}&page=${currentPage}&size=${itemsPerPage}&cat=${cat}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
             setAllProducts(res.data);
         },
         refetchOnWindowFocus: false,
     })
 
     const { data: productCount = {}, isLoading: testLoading } = useQuery({
-        queryKey: ['product-count', cat, brand],
+        queryKey: ['product-count', cat, brand, minPrice, maxPrice],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/product-count?cat=${cat}&brand=${brand}`)
+            const res = await axiosPublic.get(`/product-count?cat=${cat}&brand=${brand}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
             setPrCount(res.data.count)
         },
         refetchOnWindowFocus: false,
@@ -82,6 +84,14 @@ const AllProduct = () => {
         e.preventDefault();
         const category = e.target.category.value;
         const brandData = e.target.brand.value;
+        const min_price = e.target.min_price.value;
+        const max_price = e.target.max_price.value;
+        
+        if(min_price && max_price){
+            console.log(min_price, max_price);
+            setMinPrice(min_price)
+            setMaxPrice(max_price)
+        }        
         setCat(category);
         setBrand(brandData);
         setCrit('');
@@ -91,7 +101,7 @@ const AllProduct = () => {
 
     return (
         <div>
-            <div className="flex flex-row justify-between items-center mb-10">
+            <div className="lg:w-4/5 mx-auto mb-8 text-sm">
                 <form onSubmit={handleFilter} className="flex flex-row gap-4 items-center justify-end">
                     <select className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
                 hover:text-[#921A40] hover:bg-transparent hover:border-[#921A40] rounded-lg" name="category">
@@ -110,9 +120,15 @@ const AllProduct = () => {
                         <option value="Silhouette">Silhouette</option>
                         <option value="Focalore">Focalore</option>
                     </select>
+                    <input type="text" name="min_price" placeholder="Min. Price" 
+                    className="input input-bordered w-36 md:w-auto" />
+                    <input type="text" name="max_price" placeholder="Max Price" 
+                    className="input input-bordered w-36 md:w-auto" />
                     <button className="btn bg-[#921A40] text-white border-2 border-[#921A40] 
                 hover:border-[#921A40] hover:bg-transparent hover:text-[#921A40]">Filter</button>
                 </form>
+            </div>
+            <div className="flex flex-row justify-between items-center mb-10">
                 <select onChange={handleSort} className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
                 hover:text-[#921A40] hover:bg-transparent hover:border-[#921A40] rounded-lg">
                     <option selected disabled>Sort By</option>
