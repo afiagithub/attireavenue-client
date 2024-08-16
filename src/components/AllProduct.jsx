@@ -9,30 +9,31 @@ const AllProduct = () => {
     const [allproducts, setAllProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(9);
+    const [prCount, setPrCount] = useState(0)
     const [crit, setCrit] = useState('');
+    const [cat, setCat] = useState('');
 
     const axiosPublic = useAxiosPublic();
     const { data: products = [], isLoading, refetch } = useQuery({
-        queryKey: ['products', currentPage, itemsPerPage, crit],
+        queryKey: ['products', currentPage, itemsPerPage, crit, cat],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/all-clothes?criteria=${crit}&page=${currentPage}&size=${itemsPerPage}`)
+            const res = await axiosPublic.get(`/all-clothes?criteria=${crit}&page=${currentPage}&size=${itemsPerPage}&cat=${cat}`)
             setAllProducts(res.data);
         },
         refetchOnWindowFocus: false,
     })
 
     const { data: productCount = {}, isLoading: testLoading } = useQuery({
-        queryKey: ['product-count'],
+        queryKey: ['product-count', cat],
         queryFn: async () => {
-            const res = await axiosPublic.get('/product-count')
-            // console.log(res.data);
-            return res.data
+            const res = await axiosPublic.get(`/product-count?cat=${cat}`)            
+            setPrCount(res.data.count)
         },
         refetchOnWindowFocus: false,
     })
 
-    const { count } = productCount;
-    const noOfPages = Math.ceil(count / itemsPerPage);
+    // const { count } = productCount;
+    const noOfPages = Math.ceil(prCount / itemsPerPage);
     const pages = [];
     for (let i = 0; i < noOfPages; i++) {
         pages.push(i)
@@ -73,25 +74,44 @@ const AllProduct = () => {
 
     const handleSort = async (e) => {
         const criteria = e.target.value;
-        setCrit(criteria);        
+        setCrit(criteria);
+    }
+
+    const handleFilter = async (e) => {
+        e.preventDefault();
+        const category = e.target.category.value;
+        // console.log(category);
+        setCat(category);
+        setCrit('');        
     }
 
     return (
         <div>
-            <div className="flex flex-row justify-between items-center">
-                <div className="">
-                    <select onChange={handleSort} className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
+            <div className="flex flex-row justify-between items-center mb-10">
+                <form onSubmit={handleFilter} className="flex flex-row gap-4 items-center justify-end">
+                <select className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
+                hover:text-[#921A40] hover:bg-transparent hover:border-[#921A40] rounded-lg" name="category">
+                    <option selected disabled>Category</option>
+                    <option value="Shirts">Shirts</option>
+                    <option value="Pants">Pants</option>
+                    <option value="Jackets">Jackets</option>
+                    <option value="Dresses">Dresses</option>
+                    <option value="Shoes">Shoes</option>
+                </select>
+                    <button className="btn bg-[#921A40] text-white border-2 border-[#921A40] 
+                hover:border-[#921A40] hover:bg-transparent hover:text-[#921A40]">Filter</button>
+                </form>
+                <select onChange={handleSort} className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
                 hover:text-[#921A40] hover:bg-transparent hover:border-[#921A40] rounded-lg">
-                        <option selected disabled>Filter</option>
-                        <option value="1">Lowest Price to Highest</option>
-                        <option value="2">Highest Price to Lowest</option>
-                        <option value="3">Newest first</option>
-                    </select>
-                </div>
-                <form onSubmit={handleSearch} className="flex flex-row gap-4 items-center justify-end mr-5 md:mr-10 mb-5 md:mb-8">
+                    <option selected disabled>Sort By</option>
+                    <option value="1">Lowest Price to Highest</option>
+                    <option value="2">Highest Price to Lowest</option>
+                    <option value="3">Newest first</option>
+                </select>
+                <form onSubmit={handleSearch} className="flex flex-row gap-4 items-center justify-end">
                     <input type="text" name="name" placeholder="Search" className="input input-bordered w-48 md:w-auto" />
-                    <button className="btn bg-[#47CCC8] text-white border-2 border-[#47CCC8] 
-                hover:border-[#47CCC8] hover:bg-transparent hover:text-[#47CCC8]">Search</button>
+                    <button className="btn bg-[#921A40] text-white border-2 border-[#921A40] 
+                hover:border-[#921A40] hover:bg-transparent hover:text-[#921A40]">Search</button>
                 </form>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 place-items-center">
@@ -105,8 +125,8 @@ const AllProduct = () => {
                     pages.map(page => <button
                         onClick={() => setCurrentPage(page)}
                         key={page}
-                        className={currentPage === page ? 'btn border-2 bg-[#47CCC8] text-white border-[#47CCC8]'
-                            : 'btn border-2 border-[#47CCC8] bg-transparent text-[#47CCC8]'}>
+                        className={currentPage === page ? 'btn border-2 bg-[#921A40] text-white border-[#921A40]'
+                            : 'btn border-2 border-[#921A40] bg-transparent text-[#921A40]'}>
                         {page + 1}
                     </button>)
                 }
