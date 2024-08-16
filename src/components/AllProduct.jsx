@@ -9,12 +9,13 @@ const AllProduct = () => {
     const [allproducts, setAllProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0)
     const [itemsPerPage, setItemsPerPage] = useState(9);
+    const [crit, setCrit] = useState('');
 
     const axiosPublic = useAxiosPublic();
     const { data: products = [], isLoading, refetch } = useQuery({
-        queryKey: ['products', currentPage, itemsPerPage],
+        queryKey: ['products', currentPage, itemsPerPage, crit],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/all-clothes?&page=${currentPage}&size=${itemsPerPage}`)
+            const res = await axiosPublic.get(`/all-clothes?criteria=${crit}&page=${currentPage}&size=${itemsPerPage}`)
             setAllProducts(res.data);
         },
         refetchOnWindowFocus: false,
@@ -69,10 +70,24 @@ const AllProduct = () => {
         }
         setAllProducts(res.data);
     }
+
+    const handleSort = async (e) => {
+        const criteria = e.target.value;
+        setCrit(criteria);        
+    }
+
     return (
         <div>
             <div className="flex flex-row justify-between items-center">
-                
+                <div className="">
+                    <select onChange={handleSort} className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
+                hover:text-[#921A40] hover:bg-transparent hover:border-[#921A40] rounded-lg">
+                        <option selected disabled>Filter</option>
+                        <option value="1">Lowest Price to Highest</option>
+                        <option value="2">Highest Price to Lowest</option>
+                        <option value="3">Newest first</option>
+                    </select>
+                </div>
                 <form onSubmit={handleSearch} className="flex flex-row gap-4 items-center justify-end mr-5 md:mr-10 mb-5 md:mb-8">
                     <input type="text" name="name" placeholder="Search" className="input input-bordered w-48 md:w-auto" />
                     <button className="btn bg-[#47CCC8] text-white border-2 border-[#47CCC8] 
