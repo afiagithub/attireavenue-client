@@ -12,21 +12,22 @@ const AllProduct = () => {
     const [prCount, setPrCount] = useState(0)
     const [crit, setCrit] = useState('');
     const [cat, setCat] = useState('');
+    const [brand, setBrand] = useState('');
 
     const axiosPublic = useAxiosPublic();
     const { data: products = [], isLoading, refetch } = useQuery({
-        queryKey: ['products', currentPage, itemsPerPage, crit, cat],
+        queryKey: ['products', currentPage, itemsPerPage, crit, cat, brand],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/all-clothes?criteria=${crit}&page=${currentPage}&size=${itemsPerPage}&cat=${cat}`)
+            const res = await axiosPublic.get(`/all-clothes?criteria=${crit}&page=${currentPage}&size=${itemsPerPage}&cat=${cat}&brand=${brand}`)
             setAllProducts(res.data);
         },
         refetchOnWindowFocus: false,
     })
 
     const { data: productCount = {}, isLoading: testLoading } = useQuery({
-        queryKey: ['product-count', cat],
+        queryKey: ['product-count', cat, brand],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/product-count?cat=${cat}`)            
+            const res = await axiosPublic.get(`/product-count?cat=${cat}&brand=${brand}`)
             setPrCount(res.data.count)
         },
         refetchOnWindowFocus: false,
@@ -80,24 +81,35 @@ const AllProduct = () => {
     const handleFilter = async (e) => {
         e.preventDefault();
         const category = e.target.category.value;
-        // console.log(category);
+        const brandData = e.target.brand.value;
         setCat(category);
-        setCrit('');        
+        setBrand(brandData);
+        setCrit('');
+
+
     }
 
     return (
         <div>
             <div className="flex flex-row justify-between items-center mb-10">
                 <form onSubmit={handleFilter} className="flex flex-row gap-4 items-center justify-end">
-                <select className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
+                    <select className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
                 hover:text-[#921A40] hover:bg-transparent hover:border-[#921A40] rounded-lg" name="category">
-                    <option selected disabled>Category</option>
-                    <option value="Shirts">Shirts</option>
-                    <option value="Pants">Pants</option>
-                    <option value="Jackets">Jackets</option>
-                    <option value="Dresses">Dresses</option>
-                    <option value="Shoes">Shoes</option>
-                </select>
+                        <option selected disabled>Category</option>
+                        <option value="Shirts">Shirts</option>
+                        <option value="Pants">Pants</option>
+                        <option value="Jackets">Jackets</option>
+                        <option value="Dresses">Dresses</option>
+                        <option value="Shoes">Shoes</option>
+                    </select>
+                    <select className="p-3 text-[#921A40] font-semibold border-2 border-[#921A40] 
+                hover:text-[#921A40] hover:bg-transparent hover:border-[#921A40] rounded-lg" name="brand">
+                        <option selected disabled>Brand</option>
+                        <option value="Fabrico">Fabrico</option>
+                        <option value="VogueNest">VogueNest</option>
+                        <option value="Silhouette">Silhouette</option>
+                        <option value="Focalore">Focalore</option>
+                    </select>
                     <button className="btn bg-[#921A40] text-white border-2 border-[#921A40] 
                 hover:border-[#921A40] hover:bg-transparent hover:text-[#921A40]">Filter</button>
                 </form>
