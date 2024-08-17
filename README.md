@@ -1,8 +1,40 @@
-# React + Vite
+# Website Name
+attireavenue-clothing-store-website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Live Site URL
+https://attire-auth.web.app/
 
-Currently, two official plugins are available:
+# Features
+* **Home** page is used for product showcasing.
+<br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **Add Product** page contains a form to add a product. By providing all necessary information we can submit and add a product to the database.
+<br>
+
+* **About** page contains information on the clothing store and contians location and other contact information like email, phone number.
+<br>
+
+# Characteristics
+* Navigation Bar is fixed across all the pages of the website except the dashboard.
+<br>
+
+* In the Navigation Bar, when a user is logged in, that user's name, image can be seen. Otherwise, Login button is shown
+<br>
+
+* If an user tries to access a private route without logging in, the user is taken to the **sign in** page and after loggin in, the user is redirected to the intended page
+<br>
+
+* Footer section is fixed across all the pages of the website
+<br>
+
+* **Toast** is shown with appropriate message for all the actions and conditions (like register, login, errors, successfull addition of product information etc.)
+<br>
+
+
+# Used npm packages -
+* SeewtAlert2
+* React Axios
+* React-tooltip
+* React helmet async
+* lottie-react
+

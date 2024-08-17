@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import useAxiosPublic from "../hooks/useAxiosPublic";
+import aboutImg from '../../public/about.jpg'
 
 const AddProduct = () => {
     const [startDate, setStartDate] = useState(new Date());
@@ -21,6 +22,7 @@ const AddProduct = () => {
         const category = form.category.value;
         const price = Number(form.price.value);
         const ratings = Number(form.rate.value);
+        const time = form.time.value;
         const image = form.image.value;
         const description = form.desc.value;
 
@@ -32,6 +34,7 @@ const AddProduct = () => {
             price,
             ratings,
             product_creation_date: moment(startDate).format('YYYY-MM-DD'),
+            product_creation_time: time,
             description
         }
         // console.log(newProductData);
@@ -48,7 +51,7 @@ const AddProduct = () => {
 
     }
     return (
-        <section className="mt-10">
+        <section className="mt-5 lg:mt-10">
             <Helmet>
                 <title>AttireAvenue | Add Product</title>
             </Helmet>
@@ -100,6 +103,13 @@ const AddProduct = () => {
                             </div>
 
                             <div>
+                                <label className="block mb-2 text-sm text-gray-600 ">Photo URL</label>
+                                <input name="image" placeholder="Enter image URL" type="url"
+                                    className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 
+                                bg-white border border-gray-200 rounded-lg " />
+                            </div>
+
+                            <div>
                                 <label className="block mb-2 text-sm text-gray-600 ">Date</label>
                                 <DatePicker name="updatedDate"
                                     className='block w-full px-5 py-3 text-gray-700 placeholder-gray-400 
@@ -107,11 +117,11 @@ const AddProduct = () => {
                                     selected={startDate} onChange={(date) => setStartDate(date)} />
                             </div>
 
-                            <div className="col-span-2">
-                                <label className="block mb-2 text-sm text-gray-600 ">Photo URL</label>
-                                <input name="image" placeholder="Enter image URL" type="url"
+                            <div>
+                                <label className="block mb-2 text-sm text-gray-600 ">Creation Time (am/pm)</label>
+                                <input name="time" type="text" placeholder="Enter Time"
                                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 
-                                bg-white border border-gray-200 rounded-lg " />
+                                bg-white border border-gray-200 rounded-lg" />
                             </div>
 
                             <div className="col-span-2">
@@ -120,14 +130,14 @@ const AddProduct = () => {
                                     className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 
                                     bg-white border border-gray-200 rounded-lg"></textarea>
                             </div>
-                            <button className="btn col-span-2 bg-[#47CCC8] text-white border-2 border-[#47CCC8] 
-                    hover:border-[#47CCC8] hover:bg-transparent hover:text-[#47CCC8] text-lg">Add Product</button>
+                            <button className="btn col-span-2 bg-[#921A40] text-white border-2 border-[#921A40] 
+                    hover:border-[#921A40] hover:bg-transparent hover:text-[#921A40] text-lg">Add Product</button>
                         </form>
                     </div>
                 </div>
 
                 <div className="md:-ml-5 block lg:w-2/5">
-                    <img className="h-32 lg:h-full w-full object-cover rounded-2xl" src="https://i.ibb.co/2s1ZKNd/test.jpg" alt="" />
+                    <img className="h-32 lg:h-full w-full object-cover" src={aboutImg} alt="" />
                 </div>
             </div>
         </section>

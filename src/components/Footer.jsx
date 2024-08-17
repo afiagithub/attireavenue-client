@@ -47,7 +47,7 @@ const Footer = () => {
                                 <h3 className="text-[#2D3663] uppercase font-bold">Pages</h3>                                
                                 <a href="/" className="block mt-2 text-sm text-[#2D3663]  hover:underline">All Products</a>
                                 <a href="/about" className="block mt-2 text-sm text-[#2D3663]  hover:underline">About</a>
-                                <a href="/blog" className="block mt-2 text-sm text-[#2D3663]  hover:underline">Blogs</a>
+                                <a href="/add-product" className="block mt-2 text-sm text-[#2D3663]  hover:underline">Add Product</a>
                             </div>
 
                             <div>
@@ -60,7 +60,7 @@ const Footer = () => {
                             <div>
                                 <h3 className="text-[#2D3663] uppercase font-bold">Contact</h3>
                                 <span className="block mt-2 text-sm text-[#2D3663]  hover:underline">+1 234 567 999</span>
-                                <span className="block mt-2 text-sm text-[#2D3663]  hover:underline">AttireAvenue@gmail.com</span>
+                                <span className="block mt-2 text-sm text-[#2D3663]  hover:underline">attireavenue@gmail.com</span>
                             </div>
                         </div>
                     </div>

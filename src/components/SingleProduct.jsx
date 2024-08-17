@@ -1,7 +1,7 @@
-
+import { IoMdStar } from "react-icons/io";
 
 const SingleProduct = ({ pr }) => {
-    const { name, image, description, price, brand, category, product_creation_date } = pr;
+    const { name, image, description, price, brand, category, ratings, product_creation_date } = pr;
     return (
         <div className="card bg-base-100 w-[375px] shadow-xl">
             <figure className="">
@@ -21,9 +21,15 @@ const SingleProduct = ({ pr }) => {
                     </div>
                     <p>{description.slice(0, 80)}...</p>
                 </div>
-                <div className="flex justify-between text-sm font-medium">
-                    <p>Brand: <span className="badge badge-info">{brand}</span></p>
-                    <p>Category: <span className="badge text-[#921A40] bg-[#e6c0cc]">{category}</span></p>
+                <div className="flex justify-between text-sm">
+                    <p className="font-bold">Brand: <span className="badge badge-info font-semibold">{brand}</span></p>
+                    <p className="font-bold">Category: <span className="badge text-[#921A40] bg-[#e6c0cc] font-semibold">{category}</span></p>
+                </div>
+                <div className="flex justify-between text-sm">
+                    <p className="flex flex-row gap-1 font-bold">Rating:
+                        <span className="font-semibold">{ratings}</span>
+                        <IoMdStar className="text-yellow-400 text-lg justify-center items-center" /></p>
+                    <p className="font-bold">Added On: <span className="text-[#921A40] font-semibold">{product_creation_date}</span></p>
                 </div>
             </div>
         </div>
