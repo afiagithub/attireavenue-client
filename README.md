@@ -30,6 +30,10 @@ https://attire-auth.web.app/
 * **Toast** is shown with appropriate message for all the actions and conditions (like register, login, errors, successfull addition of product information etc.)
 <br>
 
+# Key Technology
+* MERN
+* Firebase
+* Tailwind CSS
 
 # Used npm packages -
 * SeewtAlert2
@@ -38,3 +42,13 @@ https://attire-auth.web.app/
 * React helmet async
 * lottie-react
 
+<br>
+
+# Run the Project
+If you want to clone and locally run this project, these are the steps you need to follow (you will need [node](https://nodejs.org/en) installed):
+```
+git clone https://github.com/afiagithub/attireavenue-client
+cd attireavenue-client
+npm install
+npm run dev
+```
