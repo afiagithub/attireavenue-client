@@ -26,8 +26,7 @@ const SocialLogin = () => {
                     }
                     const res = await axiosPublic.post("/users", userInfo);
                     if (res.data.insertedId) {
-                        // console.log({success: true});
-                        
+                        // console.log({success: true});                        
                     }
                 }
             });

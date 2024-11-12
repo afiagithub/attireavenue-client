@@ -1,8 +1,8 @@
 import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from "react-tooltip";
-import { FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
     return (

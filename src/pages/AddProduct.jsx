@@ -10,7 +10,6 @@ import aboutImg from '../../public/about.jpg'
 
 const AddProduct = () => {
     const [startDate, setStartDate] = useState(new Date());
-    // const axiosSecure = useAxiosSecure();
     const axiosPublic = useAxiosPublic()
     const navigate = useNavigate();
 
@@ -37,8 +36,6 @@ const AddProduct = () => {
             product_creation_time: time,
             description
         }
-        // console.log(newProductData);
-
         const res = await axiosPublic.post('/product', newProductData);
         if (res.data.insertedId) {
             Swal.fire({
